@@ -1,7 +1,7 @@
-wit-java
+Wit-Java
 ========
 
-wit-java is A Java Library to Work With [Wit.ai](https://wit.ai)
+Wit-Java Is A Java Library For [Wit.ai](https://wit.ai)
 
 *Current Version: Under Development*
 
@@ -44,7 +44,7 @@ Misc
 Tutorials & Examples
 --------------------
 
-> For almost all supported features you can take a look at [`examples/`](https://github.com/Clivern/Frog/tree/master/examples) folder for working examples.
+> For almost all supported features you can take a look at [`examples/`](https://github.com/Clivern/wit-java/tree/master/examples) folder for working examples.
 
 Changelog
 ---------
@@ -58,4 +58,4 @@ Acknowledgements
 
 © 2018, Clivern. Released under [The Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
-**wit-java** is authored and maintained by [@clivern](http://github.com/clivern).
+**Wit-Java** is authored and maintained by [@clivern](http://github.com/clivern).

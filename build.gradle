@@ -35,7 +35,7 @@ task updatePom {
                 artifactId 'wit-java'
                 version '1.0.0-SNAPSHOT'
                 name 'wit-java'
-                description 'A Java Framework for Social Sign In.'
+                description 'A Java Library For Wit.ai'
                 url 'https://github.com/clivern/wit-java'
                 licenses {
                     license {
