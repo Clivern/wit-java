@@ -13,6 +13,15 @@
  */
 package com.clivern.wit;
 
+import java.util.HashMap;
+import java.util.Map;
+import com.clivern.wit.api.Contract;
+import com.mashape.unirest.http.*;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.pmw.tinylog.Logger;
+import com.clivern.wit.exception.DataNotFound;
+import com.clivern.wit.exception.DataNotValid;
+
 /**
  * Wit Base Class
  *
@@ -29,5 +38,38 @@ public class Wit {
     public String getName()
     {
         return "Wit";
+    }
+
+    public Boolean send(Contract item) throws UnirestException, DataNotValid, DataNotFound
+    {
+        item.config();
+        HashMap<String,String> headers = (HashMap<String,String>) item.getHeaders();
+        Logger.info(item.debug());
+
+        if( item.getMethod().equals("GET") ){
+
+            HttpResponse<String> responseObj = Unirest.get(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).asString();
+            Logger.info(responseObj.getBody());
+
+        }else if( item.getMethod().equals("POST") ){
+
+            HttpResponse<String> responseObj = Unirest.post(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
+            Logger.info(responseObj.getBody());
+
+        }else if( item.getMethod().equals("PUT") ){
+
+            HttpResponse<String> responseObj = Unirest.put(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
+            Logger.info(responseObj.getBody());
+
+        }else if( item.getMethod().equals("DELETE") ){
+
+            HttpResponse<String> responseObj = Unirest.delete(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
+            Logger.info(responseObj.getBody());
+
+        }else{
+            return false;
+        }
+
+        return true;
     }
 }

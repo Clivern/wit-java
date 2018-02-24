@@ -60,4 +60,6 @@ public interface Contract
      * @return String The Data to Send
      */
     public String getData();
+
+    public String debug();
 }
