@@ -1,0 +1,87 @@
+/*
+ * Copyright (C) 2018 Clivern <http://clivern.com>
+ */
+
+// Apply the java-library plugin to add support for Java Library
+apply plugin: 'java-library'
+apply plugin: 'maven'
+
+// ###############################
+// ## REMOVE AFTER BETA RELEASE ##
+apply plugin: 'application'
+// ###############################
+
+archivesBaseName = "wit-java"
+version = '1.0.0-SNAPSHOT'
+
+// ####################################
+// ## REMOVE AFTER BETA RELEASE #######
+mainClassName = "com.clivern.wit.Test"
+// ####################################
+//
+repositories {
+    jcenter()
+    mavenCentral()
+    google()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+// Update Pom file ./gradlew updatePom
+task updatePom {
+    doLast {
+        pom {
+            project {
+                groupId 'com.clivern'
+                artifactId 'wit-java'
+                version '1.0.0-SNAPSHOT'
+                name 'wit-java'
+                description 'A Java Framework for Social Sign In.'
+                url 'https://github.com/clivern/wit-java'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+                developers {
+                	developer {
+                		id 'clivern'
+                		name 'AF'
+                        email 'hello@clivern.com'
+                        url 'http://clivern.com'
+                        roles {
+                            role 'Software Developer'
+                        }
+                	}
+                }
+                scm {
+                    url 'https://github.com/clivern/wit-java'
+                	connection 'scm:git:git://github.com/clivern/wit-java.git'
+                	developerConnection 'scm:git:git@github.com:clivern/wit-java.git'
+                }
+            }
+        }.writeTo("wit-java.pom").writeTo("wit-java.xml")
+    }
+}
+
+test {
+    //we want display the following test events
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+    }
+}
+
+dependencies {
+    // ####################################
+    // ## REMOVE AFTER BETA RELEASE #######
+    compile 'com.sparkjava:spark-core:2.6.0'
+    compile 'org.slf4j:slf4j-api:1.7.13'
+    compile 'org.slf4j:slf4j-simple:1.7.13'
+    // ####################################
+
+    compile 'org.tinylog:tinylog:1.3.2'
+    testImplementation 'junit:junit:4.12'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    compile 'org.json:json:20170516'
+}
