@@ -14,6 +14,9 @@
 package com.clivern.wit;
 
 import static spark.Spark.*;
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
 
 /**
  * Test Package
@@ -26,7 +29,28 @@ public class Test {
     public static void main(String[] args)
     {
         get("/", (request, response) -> {
-            return "Hello World";
+
+            Config config = new Config();
+            config.loadPropertiesFile("src/main/java/resources/config.properties");
+            config.configLogger();
+            App getApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.GET);
+            getApp.config();
+
+            App createApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.CREATE);
+            createApp.setName("Clark");
+            createApp.setLang("English");
+            createApp.setPrivate("false");
+            createApp.setDesc("Hello World");
+            createApp.config();
+
+            App updateApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.UPDATE);
+            updateApp.setDesc("Viola");
+            updateApp.config();
+
+            App deleteApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.DELETE);
+            deleteApp.config();
+
+            return "<pre>" + getApp.debug() + "\n" +  createApp.debug() + "\n" + updateApp.debug() + "\n" + deleteApp.debug() + "\n" + "</pre>";
         });
     }
 }
