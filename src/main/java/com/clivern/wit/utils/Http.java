@@ -11,23 +11,13 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.clivern.wit;
+package com.clivern.wit.utils;
 
 /**
- * Wit Base Class
+ * HTTP Utils Class
  *
- * @author A.F
  * @since 1.0.0
  */
-public class Wit {
+public class Http {
 
-    public Wit()
-    {
-
-    }
-
-    public String getName()
-    {
-        return "Wit";
-    }
 }
