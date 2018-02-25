@@ -32,7 +32,7 @@ public class Test {
     {
         get("/", (request, response) -> {
 
-            //
+            return "Hello World"
 
         });
     }
