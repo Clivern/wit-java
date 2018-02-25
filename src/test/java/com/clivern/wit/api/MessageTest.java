@@ -39,7 +39,7 @@ public class MessageTest extends TestCase {
         message.setN(6);
         message.setVerbose(true);
         message.config();
-        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good+Morning&msg_id=789&thread_id=fb_th&n=6&verbose=true' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
+        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good Morning&msg_id=789&thread_id=fb_th&n=6&verbose=true' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
     }
 
     public void testGet02() throws DataNotValid, DataNotFound, UnsupportedEncodingException
@@ -54,7 +54,7 @@ public class MessageTest extends TestCase {
         //message.setN(6);
         //message.setVerbose(true);
         message.config();
-        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good+Morning' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
+        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good Morning' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
     }
 
     public void testGet03() throws DataNotValid, DataNotFound, UnsupportedEncodingException
@@ -69,6 +69,6 @@ public class MessageTest extends TestCase {
         //message.setN(6);
         message.setVerbose(false);
         message.config();
-        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good+Morning&thread_id=fb_th&verbose=false' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
+        assertEquals(message.debug(), "> curl -XGET 'https://api.wit.ai/message?v=20180225&q=Good Morning&thread_id=fb_th&verbose=false' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
     }
 }

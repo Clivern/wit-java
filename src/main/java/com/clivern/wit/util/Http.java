@@ -16,6 +16,8 @@ package com.clivern.wit.util;
 import java.util.HashMap;
 import java.util.Map;
 import org.pmw.tinylog.Logger;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 import com.clivern.wit.exception.DataNotFound;
 import okhttp3.OkHttpClient;
 import okhttp3.MediaType;
@@ -74,12 +76,14 @@ public class Http {
      *
      * @return String The Response
      */
-    public String execute() throws DataNotFound, IOException
+    public String execute() throws DataNotFound, IOException, UnsupportedEncodingException
     {
         if( !this.headers.containsKey("Content-Type") || !this.headers.containsKey("Authorization") ){
             Logger.error("Error! Content-Type and Authorization required to make a request.");
             throw new DataNotFound("Error! Content-Type and Authorization required to make a request.");
         }
+
+        this.url = URLEncoder.encode(this.url, "UTF-8");
 
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse(this.headers.get("Content-Type"));

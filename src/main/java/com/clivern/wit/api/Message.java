@@ -15,8 +15,6 @@ package com.clivern.wit.api;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 import org.pmw.tinylog.Logger;
 import com.clivern.wit.exception.DataNotFound;
 import com.clivern.wit.exception.DataNotValid;
@@ -276,9 +274,9 @@ public class Message implements Contract {
      *
      * @param q The users query
      */
-    public void setQ(String q) throws UnsupportedEncodingException
+    public void setQ(String q)
     {
-        this.q = URLEncoder.encode(q, "UTF-8");
+        this.q = q;
     }
 
     /**

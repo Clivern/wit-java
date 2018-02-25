@@ -22,20 +22,4 @@ public class SpeechEndpoint {
 
     public static String CONTENT_TYPE = "application/json";
 
-    public static String GET = "GET_APPS";
-    public static String GET_METHOD = "GET";
-    public static String GET_ENDPOINT = "https://api.wit.ai/apps?v=20180225&offset={$OFFSET}&limit={$LIMIT}";
-
-    public static String CREATE = "CREATE_APP";
-    public static String CREATE_METHOD = "POST";
-    public static String CREATE_ENDPOINT = "https://api.wit.ai/apps?v=20180225";
-
-    public static String UPDATE = "UPDATE_APP";
-    public static String UPDATE_METHOD = "PUT";
-    public static String UPDATE_ENDPOINT = "https://api.wit.ai/apps/{$APP_ID}?v=20180225";
-
-    public static String DELETE = "DELETE_APP";
-    public static String DELETE_METHOD = "DELETE";
-    public static String DELETE_ENDPOINT = "https://api.wit.ai/apps/{$APP_ID}?v=20180225";
-
 }
