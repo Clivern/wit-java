@@ -313,7 +313,7 @@ public class Main {
 
 ### [Create a New App](https://wit.ai/docs/http/20170307#post--apps-link)
 
-To Creates a new app for an existing user.
+To Create a new app for an existing user.
 
 ```java
 import com.clivern.wit.api.App;
@@ -389,6 +389,99 @@ public class Main {
             // createApp.setAccessToken("Your Custom Access Token Here");
 
             if( wit.send(createApp) ){
+                return wit.getResponse();
+            }else{
+                return wit.getError();
+            }
+        }
+    }
+}
+```
+
+### [Get The Meaning of a Sentence](https://wit.ai/docs/http/20170307#get--message-link)
+
+To extract the meaning from a sentence, based on the app data:
+
+```java
+import com.clivern.wit.api.Message;
+import com.clivern.wit.api.endpoint.MessageEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+//....
+
+
+Config config = new Config();
+config.loadPropertiesFile("config.properties");
+config.configLogger();
+
+Wit wit = new Wit(config);
+
+Message message = new Message(MessageEndpoint.GET);
+message.setQ("Good Morning");
+//message.setContext("");
+//message.setMsgId("789");
+//message.setThreadId("fb_th");
+//message.setN(6);
+//message.setVerbose(true);
+
+// To Use another App Id different from the one on your properties file
+// message.setAppId("Your Custom App ID Here");
+// To Use Another Access Token Different From The one on your properties file
+// message.setAccessToken("Your Custom Access Token Here");
+
+String result = "";
+String error = ""
+
+if( wit.send(message) ){
+    result = wit.getResponse();
+}else{
+    error = wit.getError();
+}
+```
+
+So in case we use [spark java framework](http://sparkjava.com/), Our code can be look like the following:
+
+```java
+package com.clivern.test;
+
+import static spark.Spark.*;
+import com.clivern.wit.api.Message;
+import com.clivern.wit.api.endpoint.MessageEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+/**
+ * Main Class
+ *
+ * @since 1.0.0
+ */
+public class Main {
+
+    public static void main(String[] args)
+    {
+        get("/", (request, response) -> {
+
+            Config config = new Config();
+            config.loadPropertiesFile("src/main/java/resources/config.properties");
+            config.configLogger();
+
+            Wit wit = new Wit(config);
+
+            Message message = new Message(MessageEndpoint.GET);
+            message.setQ("Good Morning");
+            //message.setContext("");
+            //message.setMsgId("789");
+            //message.setThreadId("fb_th");
+            //message.setN(6);
+            //message.setVerbose(true);
+
+            // To Use another App Id different from the one on your properties file
+            // message.setAppId("Your Custom App ID Here");
+            // To Use Another Access Token Different From The one on your properties file
+            // message.setAccessToken("Your Custom Access Token Here");
+
+            if( wit.send(message) ){
                 return wit.getResponse();
             }else{
                 return wit.getError();

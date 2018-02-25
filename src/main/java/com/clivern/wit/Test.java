@@ -15,8 +15,8 @@ package com.clivern.wit;
 
 import static spark.Spark.*;
 import org.pmw.tinylog.Logger;
-import com.clivern.wit.api.App;
-import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.api.Message;
+import com.clivern.wit.api.endpoint.MessageEndpoint;
 import com.clivern.wit.util.Config;
 import com.clivern.wit.Wit;
 

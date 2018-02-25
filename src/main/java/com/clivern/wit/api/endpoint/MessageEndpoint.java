@@ -11,13 +11,19 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.clivern.wit.api;
+package com.clivern.wit.api.endpoint;
 
 /**
- * Intent API
+ * Message Endpoints
  *
  * @since 1.0.0
  */
-public class Intent {
+public class MessageEndpoint {
+
+    public static String CONTENT_TYPE = "application/json";
+
+    public static String GET = "GET_MESSAGE";
+    public static String GET_METHOD = "GET";
+    public static String GET_ENDPOINT = "https://api.wit.ai/message?v=20180225&q={$Q}&context={$CONTEXT}&msg_id={$MSG_ID}&thread_id={$THREAD_ID}&n={$N}&verbose={$VERBOSE}";
 
 }

@@ -20,7 +20,7 @@ import com.clivern.wit.api.endpoint.AppEndpoint;
 import junit.framework.TestCase;
 
 /**
- * Wit Class Test Cases
+ * Wit App API Test Cases
  *
  * @since 1.0.0
  */
