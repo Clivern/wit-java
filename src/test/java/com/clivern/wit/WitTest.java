@@ -13,7 +13,10 @@
  */
 package com.clivern.wit;
 
+import com.clivern.wit.Wit;
+import com.clivern.wit.util.Config;
 import junit.framework.TestCase;
+import java.io.IOException;
 
 /**
  * Wit Class Test Cases
@@ -22,8 +25,11 @@ import junit.framework.TestCase;
  */
 public class WitTest extends TestCase {
 
-    public void testGetName()
+    public void testGetName() throws IOException
     {
-        assertEquals(new Wit().getName(), "Wit-Java ~ v1.0.0");
+        Config config = new Config();
+        config.loadPropertiesFile("src/test/java/resources/config.properties");
+        config.configLogger();
+        assertEquals(new Wit(config).getName(), "Wit-Java ~ v1.0.0");
     }
 }
