@@ -34,9 +34,90 @@ libraryDependencies += "com.clivern" % "wit-java" % "1.0.0-SNAPSHOT"
 Usage
 -----
 After adding the package as a dependency, Please read the following steps:
+
+### Basic Configurations
+
+In order to cofigure the package create `config.properties` file with the following data
+
+```java
+wit_api_id=app id here
+wit_access_token=access token here
+
+logging_level=tarce or debug or info or warning or error
+logging_file_path=src/main/java/resources/
+logging_file_format=current_date or app
+logging_log_type=file or console or both
+logging_current_date_format=yyyy-MM-dd
+logging_append=true or false
+logging_buffered=true or false
 ```
-#
+
+### [Get Apps](https://wit.ai/docs/http/20170307#get--apps-link)
+In order to get an array of all apps that you own.
+
+```java
+Config config = new Config();
+config.loadPropertiesFile("config.properties");
+config.configLogger();
+
+Wit wit = new Wit(config);
+
+App getApp = new App(AppEndpoint.GET);
+String result = "";
+String error = ""
+
+if( wit.send(getApp) ){
+    result = wit.getResponse();
+}else{
+    error = wit.getError();
+}
 ```
+
+So in case we use [spark java framework](http://sparkjava.com/), Our code can be look like the following:
+
+```java
+package com.clivern.test;
+
+import static spark.Spark.*;
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+/**
+ * Main Class
+ *
+ * @since 1.0.0
+ */
+public class Main {
+
+    public static void main(String[] args)
+    {
+        get("/", (request, response) -> {
+
+            Config config = new Config();
+            config.loadPropertiesFile("src/main/java/resources/config.properties");
+            config.configLogger();
+
+            Wit wit = new Wit(config);
+
+            App getApp = new App(AppEndpoint.GET);
+            if( wit.send(getApp) ){
+                return wit.getResponse();
+            }else{
+                return wit.getError();
+            }
+        }
+    }
+}
+```
+
+### Update App
+
+### Delete App
+
+### Create App
+
 
 Misc
 ====

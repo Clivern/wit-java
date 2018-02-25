@@ -14,7 +14,6 @@
 package com.clivern.wit;
 
 import static spark.Spark.*;
-import org.pmw.tinylog.Logger;
 import com.clivern.wit.api.App;
 import com.clivern.wit.api.endpoint.AppEndpoint;
 import com.clivern.wit.util.Config;
@@ -39,7 +38,11 @@ public class Test {
             Wit wit = new Wit(config);
 
             App getApp = new App(AppEndpoint.GET);
-            Logger.info(wit.send(getApp));
+            if( wit.send(getApp) ){
+                return wit.getResponse();
+            }else{
+                return wit.getError();
+            }
 
             // App createApp = new App(AppEndpoint.CREATE);
             // createApp.setName("Clark");
@@ -55,7 +58,6 @@ public class Test {
 
             // App deleteApp = new App(AppEndpoint.DELETE);
             //deleteApp.config();
-            return wit.getResponse();
 
         });
     }
