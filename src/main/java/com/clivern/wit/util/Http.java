@@ -13,6 +13,17 @@
  */
 package com.clivern.wit.util;
 
+import java.util.HashMap;
+import java.util.Map;
+import org.pmw.tinylog.Logger;
+import com.clivern.wit.exception.DataNotFound;
+import okhttp3.OkHttpClient;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.RequestBody;
+import java.io.IOException;
+
 /**
  * HTTP Utils Class
  *
@@ -20,4 +31,106 @@ package com.clivern.wit.util;
  */
 public class Http {
 
+    protected Boolean isOk;
+    protected Response response;
+    protected String responseStr;
+    protected String url;
+    protected String method;
+    protected String body;
+    protected Map<String, String> headers;
+
+    /**
+     * Class Constructor
+     *
+     * @param url The API Endpoint URL
+     * @param method The Call Method
+     * @param headers The List of Headers
+     */
+    public Http(String url, String method, Map<String, String> headers)
+    {
+        this.url = url;
+        this.method = method;
+        this.headers = headers;
+    }
+
+    /**
+     * Class Constructor
+     *
+     * @param url The API Endpoint URL
+     * @param method The Call Method
+     * @param headers The List of Headers
+     * @param body The request body
+     */
+    public Http(String url, String method, Map<String, String> headers, String body)
+    {
+        this.url = url;
+        this.method = method;
+        this.headers = headers;
+        this.body = body;
+    }
+
+    /**
+     * Execute The API Call
+     *
+     * @return String The Response
+     */
+    public String execute() throws DataNotFound, IOException
+    {
+        if( !this.headers.containsKey("Content-Type") || !this.headers.containsKey("Authorization") ){
+            Logger.error("Error! Content-Type and Authorization required to make a request.");
+            throw new DataNotFound("Error! Content-Type and Authorization required to make a request.");
+        }
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse(this.headers.get("Content-Type"));
+
+        if( this.method.equals("GET") ){
+
+            Request request = new Request.Builder()
+                .url(this.url)
+                .get()
+                .addHeader("Authorization", this.headers.get("Authorization"))
+                .addHeader("Content-Type", this.headers.get("Content-Type"))
+                .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+
+        }else if( this.method.equals("POST") ){
+
+            RequestBody body = RequestBody.create(mediaType, this.body);
+            Request request = new Request.Builder()
+                .url(this.url)
+                .post(body)
+                .addHeader("Authorization", this.headers.get("Authorization"))
+                .addHeader("Content-Type", this.headers.get("Content-Type"))
+                .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+
+        }else if( this.method.equals("PUT") ){
+
+            RequestBody body = RequestBody.create(mediaType, this.body);
+            Request request = new Request.Builder()
+                .url(this.url)
+                .put(body)
+                .addHeader("Authorization", this.headers.get("Authorization"))
+                .addHeader("Content-Type", this.headers.get("Content-Type"))
+                .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+
+        }else if( this.method.equals("DELETE") ){
+
+            Request request = new Request.Builder()
+                .url(this.url)
+                .delete(null)
+                .addHeader("Authorization", this.headers.get("Authorization"))
+                .addHeader("Content-Type", this.headers.get("Content-Type"))
+                .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+
+        return "";
+    }
 }
