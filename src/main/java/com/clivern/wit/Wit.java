@@ -15,12 +15,13 @@ package com.clivern.wit;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.util.Http;
 import com.clivern.wit.api.Contract;
-import com.mashape.unirest.http.*;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.pmw.tinylog.Logger;
 import com.clivern.wit.exception.DataNotFound;
 import com.clivern.wit.exception.DataNotValid;
+import java.io.IOException;
 
 /**
  * Wit Base Class
@@ -30,46 +31,93 @@ import com.clivern.wit.exception.DataNotValid;
  */
 public class Wit {
 
-    public Wit()
-    {
+    protected Config config;
+    protected String response = "";
+    protected Boolean status = false;
+    protected String error = "";
 
+    /**
+     * Class Constructor
+     *
+     * @param config An instance of config class
+     */
+    public Wit(Config config)
+    {
+        this.config = config;
     }
 
-    public String getName()
+    /**
+     * Send A Call To Wit.Ai
+     *
+     * @return Boolean the call status
+     */
+    public Boolean send(Contract item) throws DataNotValid, DataNotFound, IOException
     {
-        return "Wit";
-    }
+        this.status = false;
+        this.response = "";
+        this.error = "";
 
-    public Boolean send(Contract item) throws UnirestException, DataNotValid, DataNotFound
-    {
-        item.config();
-        HashMap<String,String> headers = (HashMap<String,String>) item.getHeaders();
-        Logger.info(item.debug());
-
-        if( item.getMethod().equals("GET") ){
-
-            HttpResponse<String> responseObj = Unirest.get(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).asString();
-            Logger.info(responseObj.getBody());
-
-        }else if( item.getMethod().equals("POST") ){
-
-            HttpResponse<String> responseObj = Unirest.post(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
-            Logger.info(responseObj.getBody());
-
-        }else if( item.getMethod().equals("PUT") ){
-
-            HttpResponse<String> responseObj = Unirest.put(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
-            Logger.info(responseObj.getBody());
-
-        }else if( item.getMethod().equals("DELETE") ){
-
-            HttpResponse<String> responseObj = Unirest.delete(item.getUrl()).header("Authorization", headers.get("Authorization")).header("Content-Type", headers.get("Content-Type")).body(item.getData()).asString();
-            Logger.info(responseObj.getBody());
-
-        }else{
-            return false;
+        try {
+            item.setAppId(this.config.get("wit_api_id", ""));
+            item.setAccessToken(this.config.get("wit_access_token", ""));
+            item.config();
+            HashMap<String,String> headers = (HashMap<String,String>) item.getHeaders();
+            Logger.info(item.debug());
+            Http httpRequest = new Http(item.getUrl(), item.getMethod(), item.getHeaders(), item.getData());
+            this.response = httpRequest.execute();
+        } catch (Exception e) {
+            this.status = false;
+            this.error = "Error! " + e.getMessage();
+            Logger.error(this.error);
+            return this.status;
         }
 
-        return true;
+        if( this.response.equals("") || this.response.indexOf("error") > 0 ){
+            this.status = false;
+        }else{
+            this.status = true;
+        }
+
+        return this.status;
+    }
+
+    /**
+     * Get Latest Call Response
+     *
+     * @return String The Call Response
+     */
+    public String getResponse()
+    {
+        return this.response;
+    }
+
+    /**
+     * Get Latest Call Error
+     *
+     * @return String The Call Error
+     */
+    public String getError()
+    {
+        return this.error;
+    }
+
+    /**
+     * Get Latest Call Status
+     *
+     * @return Boolean The Call Status
+     */
+    public Boolean getRequestStatus()
+    {
+        return this.status;
+    }
+
+    /**
+     * Get Package Name and Version
+     *
+     * @return String The Package Name and Version
+     */
+    public String getName()
+    {
+        return "Wit-Java ~ v1.0.0";
     }
 }

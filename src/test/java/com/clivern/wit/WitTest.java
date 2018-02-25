@@ -24,6 +24,6 @@ public class WitTest extends TestCase {
 
     public void testGetName()
     {
-        assertEquals(new Wit().getName(), "Wit");
+        assertEquals(new Wit().getName(), "Wit-Java ~ v1.0.0");
     }
 }

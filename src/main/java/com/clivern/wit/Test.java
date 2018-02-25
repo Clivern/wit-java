@@ -14,6 +14,7 @@
 package com.clivern.wit;
 
 import static spark.Spark.*;
+import org.pmw.tinylog.Logger;
 import com.clivern.wit.api.App;
 import com.clivern.wit.api.endpoint.AppEndpoint;
 import com.clivern.wit.util.Config;
@@ -34,25 +35,27 @@ public class Test {
             Config config = new Config();
             config.loadPropertiesFile("src/main/java/resources/config.properties");
             config.configLogger();
-            App getApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.GET);
-            new Wit().send(getApp);
-            //getApp.config();
 
-            App createApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.CREATE);
-            createApp.setName("Clark");
-            createApp.setLang("English");
-            createApp.setPrivate("false");
-            createApp.setDesc("Hello World");
-            new Wit().send(createApp);
-            //createApp.config();
+            Wit wit = new Wit(config);
 
-            App updateApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.UPDATE);
-            updateApp.setDesc("Viola");
-            //updateApp.config();
+            App getApp = new App(AppEndpoint.GET);
+            Logger.info(wit.send(getApp));
 
-            App deleteApp = new App(config.get("wit_api_id", ""), config.get("wit_access_token", ""), AppEndpoint.DELETE);
+            // App createApp = new App(AppEndpoint.CREATE);
+            // createApp.setName("Clark");
+            // createApp.setLang("English");
+            // createApp.setPrivate("false");
+            // createApp.setDesc("Hello World");
+            // new Wit().send(createApp);
+            // //createApp.config();
+
+            // App updateApp = new App(AppEndpoint.UPDATE);
+            // updateApp.setDesc("Viola");
+            // //updateApp.config();
+
+            // App deleteApp = new App(AppEndpoint.DELETE);
             //deleteApp.config();
-            return "Cool";
+            return wit.getResponse();
 
         });
     }

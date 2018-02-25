@@ -40,32 +40,25 @@ public class App implements Contract {
     public Integer offset = 0;
     public Integer limit = 500;
 
+
     /**
      * Class Constructor
      *
-     * @param appId The Application ID
-     * @param accessToken The Access Token
      * @param endpointName The Endpoint Name
      */
-    public App(String appId, String accessToken, String endpointName)
+    public App(String endpointName)
     {
-        this.appId = appId;
-        this.accessToken = accessToken;
         this.endpointName = endpointName;
     }
 
     /**
      * Class Constructor
      *
-     * @param appId The Application ID
-     * @param accessToken The Access Token
      * @param endpointName The Endpoint Name
      * @param contentType The Content Type
      */
-    public App(String appId, String accessToken, String endpointName, String contentType)
+    public App(String endpointName, String contentType)
     {
-        this.appId = appId;
-        this.accessToken = accessToken;
         this.endpointName = endpointName;
         this.contentType = contentType;
     }
@@ -86,13 +79,13 @@ public class App implements Contract {
         // Set URL & Method
         if( this.endpointName.equals(AppEndpoint.GET) ){
 
-            this.url = AppEndpoint.GET_APPS_ENDPOINT;
-            this.method = AppEndpoint.GET_APPS_ENDPOINT_METHOD;
+            this.url = AppEndpoint.GET_ENDPOINT;
+            this.method = AppEndpoint.GET_METHOD;
 
         }else if( this.endpointName.equals(AppEndpoint.CREATE) ){
 
-            this.url = AppEndpoint.CREATE_APP_ENDPOINT;
-            this.method = AppEndpoint.CREATE_APP_ENDPOINT_METHOD;
+            this.url = AppEndpoint.CREATE_ENDPOINT;
+            this.method = AppEndpoint.CREATE_METHOD;
 
             if( this.getName().equals("") || this.getLang().equals("") || this.getPrivate().equals("") ){
                 Logger.error("Error! App Name, Lang and IsPrivate are required to create a New App.");
@@ -101,13 +94,13 @@ public class App implements Contract {
 
         }else if( this.endpointName.equals(AppEndpoint.UPDATE) ){
 
-            this.url = AppEndpoint.UPDATE_APP_ENDPOINT;
-            this.method = AppEndpoint.UPDATE_APP_ENDPOINT_METHOD;
+            this.url = AppEndpoint.UPDATE_ENDPOINT;
+            this.method = AppEndpoint.UPDATE_METHOD;
 
         }else if( this.endpointName.equals(AppEndpoint.DELETE) ){
 
-            this.url = AppEndpoint.DELETE_APP_ENDPOINT;
-            this.method = AppEndpoint.DELETE_APP_ENDPOINT_METHOD;
+            this.url = AppEndpoint.DELETE_ENDPOINT;
+            this.method = AppEndpoint.DELETE_METHOD;
 
         }else{
             Logger.error("Error! Invalid endpointName Value.");
@@ -174,73 +167,23 @@ public class App implements Contract {
     }
 
     /**
-     * Set Apps list offset
+     * Get The App ID
      *
-     * @param offset The apps list offset
+     * @return String The App ID
      */
-    public void setOffset(Integer offset)
+    public String getAppId()
     {
-        this.offset = offset;
+        return this.appId;
     }
 
     /**
-     * Set Apps list limit
+     * Get Access Token
      *
-     * @param limit The apps list limit
+     * @return String The Access Token
      */
-    public void setLimit(Integer limit)
+    public String getAccessToken()
     {
-        this.limit = limit;
-    }
-
-    /**
-     * Set App Name
-     *
-     * @param name The app name
-     */
-    public void setName(String name)
-    {
-        this.data.put("name", name);
-    }
-
-    /**
-     * Set App Lang
-     *
-     * @param lang The app lang
-     */
-    public void setLang(String lang)
-    {
-        this.data.put("lang", lang);
-    }
-
-    /**
-     * Whether App Private or Not
-     *
-     * @param isPrivate The private status
-     */
-    public void setPrivate(String isPrivate)
-    {
-        this.data.put("private", isPrivate);
-    }
-
-   /**
-     * Set the Desc
-     *
-     * @param desc The App Desc
-     */
-    public void setDesc(String desc)
-    {
-        this.data.put("desc", desc);
-    }
-
-   /**
-     * Set the Timezone
-     *
-     * @param timezone The App Timezone
-     */
-    public void setTimezone(String timezone)
-    {
-        this.data.put("timezone", timezone);
+        return this.accessToken;
     }
 
     /**
@@ -314,7 +257,105 @@ public class App implements Contract {
     }
 
     /**
+     * Set App ID
+     *
+     * @param appId Application ID
+     */
+    public void setAppId(String appId)
+    {
+        if( this.appId.equals("") ){
+            this.appId = appId;
+        }
+    }
+
+    /**
+     * Set Access Token
+     *
+     * @param accessToken Access Token
+     */
+    public void setAccessToken(String accessToken)
+    {
+        if( this.accessToken.equals("") ){
+            this.accessToken = accessToken;
+        }
+    }
+
+    /**
+     * Set Apps list offset
+     *
+     * @param offset The apps list offset
+     */
+    public void setOffset(Integer offset)
+    {
+        this.offset = offset;
+    }
+
+    /**
+     * Set Apps list limit
+     *
+     * @param limit The apps list limit
+     */
+    public void setLimit(Integer limit)
+    {
+        this.limit = limit;
+    }
+
+    /**
+     * Set App Name
+     *
+     * @param name The app name
+     */
+    public void setName(String name)
+    {
+        this.data.put("name", name);
+    }
+
+    /**
+     * Set App Lang
+     *
+     * @param lang The app lang
+     */
+    public void setLang(String lang)
+    {
+        this.data.put("lang", lang);
+    }
+
+    /**
+     * Whether App Private or Not
+     *
+     * @param isPrivate The private status
+     */
+    public void setPrivate(String isPrivate)
+    {
+        this.data.put("private", isPrivate);
+    }
+
+   /**
+     * Set the Desc
+     *
+     * @param desc The App Desc
+     */
+    public void setDesc(String desc)
+    {
+        this.data.put("desc", desc);
+    }
+
+   /**
+     * Set the Timezone
+     *
+     * @param timezone The App Timezone
+     */
+    public void setTimezone(String timezone)
+    {
+        this.data.put("timezone", timezone);
+    }
+
+    /**
      * Debug The Request
+     *
+     * This Used for Development Purposes and Shouldn't used in Production
+     *
+     * @return String The debug data
      */
     public String debug()
     {

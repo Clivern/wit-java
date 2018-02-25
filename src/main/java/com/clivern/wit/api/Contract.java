@@ -34,6 +34,34 @@ public interface Contract
     public Boolean config() throws DataNotValid, DataNotFound;
 
     /**
+     * Set App ID
+     *
+     * @param appId Application ID
+     */
+    public void setAppId(String appId);
+
+    /**
+     * Set Access Token
+     *
+     * @param accessToken Access Token
+     */
+    public void setAccessToken(String accessToken);
+
+    /**
+     * Get App ID
+     *
+     * @return String The App ID
+     */
+    public String getAppId();
+
+    /**
+     * Get Access Token
+     *
+     * @return String The Access Token
+     */
+    public String getAccessToken();
+
+    /**
      * Get The URL
      *
      * @return String The URL
@@ -61,5 +89,10 @@ public interface Contract
      */
     public String getData();
 
+    /**
+     * Debug The Request
+     *
+     * @return String The debug data
+     */
     public String debug();
 }
