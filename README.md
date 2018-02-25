@@ -72,6 +72,14 @@ config.configLogger();
 To get an array of all apps that you own.
 
 ```java
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+//....
+
+
 Config config = new Config();
 config.loadPropertiesFile("config.properties");
 config.configLogger();
@@ -142,6 +150,14 @@ public class Main {
 To Update an app with the given attributes.
 
 ```java
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+//....
+
+
 Config config = new Config();
 config.loadPropertiesFile("config.properties");
 config.configLogger();
@@ -223,6 +239,14 @@ public class Main {
 To Permanently delete the app.
 
 ```java
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+//....
+
+
 Config config = new Config();
 config.loadPropertiesFile("config.properties");
 config.configLogger();
@@ -292,6 +316,14 @@ public class Main {
 To Creates a new app for an existing user.
 
 ```java
+import com.clivern.wit.api.App;
+import com.clivern.wit.api.endpoint.AppEndpoint;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.Wit;
+
+//....
+
+
 Config config = new Config();
 config.loadPropertiesFile("config.properties");
 config.configLogger();
