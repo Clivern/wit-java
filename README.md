@@ -3,9 +3,11 @@ Wit-Java
 
 Wit-Java Is A Java Library For [Wit.ai](https://wit.ai)
 
-*Current Version: Under Development*
+*Current Version: 1.0.0*
 
 [![Build Status](https://travis-ci.org/Clivern/wit-java.svg?branch=master)](https://travis-ci.org/Clivern/wit-java)
+![](https://img.shields.io/maven-central/v/com.clivern/wit-java.svg)
+[![Javadocs](http://www.javadoc.io/badge/com.clivern/wit-java.svg)](http://www.javadoc.io/doc/com.clivern/wit-java)
 ![](https://img.shields.io/github/license/clivern/wit-java.svg)
 
 Installation
@@ -15,20 +17,20 @@ To add a dependency using Maven, use the following:
 <dependency>
   <groupId>com.clivern</groupId>
   <artifactId>wit-java</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
 To add a dependency using Gradle, use the following:
 ```java
 dependencies {
-  compile 'com.clivern:wit-java:1.0.0-SNAPSHOT'
+  compile 'com.clivern:wit-java:1.0.0'
 }
 ```
 
 To add a dependency using Scala SBT, use the following:
 ```java
-libraryDependencies += "com.clivern" % "wit-java" % "1.0.0-SNAPSHOT"
+libraryDependencies += "com.clivern" % "wit-java" % "1.0.0"
 ```
 
 Usage
@@ -1273,16 +1275,11 @@ public class Main {
 Misc
 ====
 
-Tutorials & Examples
---------------------
-
-> For almost all supported features you can take a look at [`examples/`](https://github.com/Clivern/wit-java/tree/master/examples) folder for working examples.
-
 Changelog
 ---------
 Version 1.0.0:
 ```
-Coming Soon
+Initial Release.
 ```
 
 Acknowledgements

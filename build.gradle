@@ -6,19 +6,9 @@
 apply plugin: 'java-library'
 apply plugin: 'maven'
 
-// ###############################
-// ## REMOVE AFTER BETA RELEASE ##
-apply plugin: 'application'
-// ###############################
-
 archivesBaseName = "wit-java"
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0'
 
-// ####################################
-// ## REMOVE AFTER BETA RELEASE #######
-mainClassName = "com.clivern.wit.Test"
-// ####################################
-//
 repositories {
     jcenter()
     mavenCentral()
@@ -33,7 +23,7 @@ task updatePom {
             project {
                 groupId 'com.clivern'
                 artifactId 'wit-java'
-                version '1.0.0-SNAPSHOT'
+                version '1.0.0'
                 name 'wit-java'
                 description 'A Java Library For Wit.ai'
                 url 'https://github.com/clivern/wit-java'
@@ -73,15 +63,7 @@ test {
 }
 
 dependencies {
-    // ####################################
-    // ## REMOVE AFTER BETA RELEASE #######
-    compile 'com.sparkjava:spark-core:2.6.0'
-    compile 'org.slf4j:slf4j-api:1.7.13'
-    compile 'org.slf4j:slf4j-simple:1.7.13'
-    // ####################################
-
     compile 'org.tinylog:tinylog:1.3.2'
-    testImplementation 'junit:junit:4.12'
     compile 'com.squareup.okhttp3:okhttp:3.9.1'
-    compile 'org.json:json:20170516'
+    testImplementation 'junit:junit:4.12'
 }

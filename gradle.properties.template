@@ -1,6 +1,6 @@
 POM_GROUP_ID=com.clivern
 POM_ARTIFACT_ID=wit-java
-POM_VERSION=1.0.0-SNAPSHOT
+POM_VERSION=1.0.0
 POM_NAME=wit-java
 POM_DESCRIPTION=A Java Library For Wit.ai
 POM_URL=https://github.com/clivern/wit-java
