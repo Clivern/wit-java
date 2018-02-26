@@ -473,5 +473,4 @@ public class Entity implements Contract {
 
         return debug;
     }
-
 }

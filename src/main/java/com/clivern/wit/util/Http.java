@@ -83,7 +83,7 @@ public class Http {
             throw new DataNotFound("Error! Content-Type and Authorization required to make a request.");
         }
 
-        this.url = URLEncoder.encode(this.url, "UTF-8");
+        this.url = this.url.replaceAll(" ", "%20");
 
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse(this.headers.get("Content-Type"));
