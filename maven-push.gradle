@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Clivern. <https://clivern.com>. All rights reserved.
+ * Copyright (c) 2018 Clivern. <https://clivern.com>. All rights reserved.
  */
 
 // /opt/gradle/bin/gradle -b maven-push.gradle uploadArchives
