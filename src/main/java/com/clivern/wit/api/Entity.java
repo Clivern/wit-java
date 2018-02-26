@@ -138,8 +138,10 @@ public class Entity implements Contract {
                 String key = entry.getKey();
                 String value = entry.getValue();
 
-                if( value.indexOf("||") > 0 ){
+                if( (value.indexOf("||") > 0) && (!value.startsWith("{")) && (!value.endsWith("}")) ){
                     value = "[\"" + value.replace("||", "\",\"") + "\"]";
+                }else if( (value.indexOf("||") > 0) && (value.startsWith("{")) && (value.endsWith("}")) ){
+                    value = "[" + value.replace("||", ",") + "]";
                 }else{
                     value = "\"" + value + "\"";
                 }

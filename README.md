@@ -761,11 +761,14 @@ config.configLogger();
 Wit wit = new Wit(config);
 
 Entity entity = new Entity(EntityEndpoint.UPDATE_ENTITY);
-entity.setEntityId("favorite_city");
-entity.setId("favorite_land");
-entity.setDoc("These are cities worth going to");
-// Not Working Yet
-//entity.setValues(new String[]{"Paris", "Dublin", "Amsterdam", "Berlin"});
+entity.setEntityId("favorite_land");
+entity.setId("favorite_city");
+entity.setDoc("These are lands worth going to");
+entity.setValues(new String[]{
+    "{\"value\": \"Paris\",\"expressions\": [\"Paris\", \"City of Light\", \"Capital of FR\"]}",
+    "{\"value\": \"London\",\"expressions\": [\"London\", \"City of Dreams\", \"Capital of UK\"]}",
+    "{\"value\": \"Amsterdam\",\"expressions\": [\"Amsterdam\", \"City of Love\", \"Capital of NL\"]}"
+});
 
 // To Use another App Id different from the one on your properties file
 // entity.setAppId("Your Custom App ID Here");
@@ -811,11 +814,14 @@ public class Main {
             Wit wit = new Wit(config);
 
             Entity entity = new Entity(EntityEndpoint.UPDATE_ENTITY);
-            entity.setEntityId("favorite_city");
-            entity.setId("favorite_land");
-            entity.setDoc("These are cities worth going to");
-            // Not Working Yet
-            //entity.setValues(new String[]{"Paris", "Dublin", "Amsterdam", "Berlin"});
+            entity.setEntityId("favorite_land");
+            entity.setId("favorite_city");
+            entity.setDoc("These are lands worth going to");
+            entity.setValues(new String[]{
+                "{\"value\": \"Paris\",\"expressions\": [\"Paris\", \"City of Light\", \"Capital of FR\"]}",
+                "{\"value\": \"London\",\"expressions\": [\"London\", \"City of Dreams\", \"Capital of UK\"]}",
+                "{\"value\": \"Amsterdam\",\"expressions\": [\"Amsterdam\", \"City of Love\", \"Capital of NL\"]}"
+            });
 
             // To Use another App Id different from the one on your properties file
             // entity.setAppId("Your Custom App ID Here");
