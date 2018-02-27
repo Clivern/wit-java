@@ -26,7 +26,6 @@ import java.io.IOException;
 /**
  * Wit Base Class
  *
- * @author A.F
  * @since 1.0.0
  */
 public class Wit {
