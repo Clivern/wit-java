@@ -23,7 +23,7 @@ public class DataNotValid extends Exception {
     /**
      * Class Constructor
      *
-     * @param  exception
+     * @param exception Exception Instance
      */
     public DataNotValid(Exception exception)
     {
@@ -33,7 +33,7 @@ public class DataNotValid extends Exception {
     /**
      * Class Constructor
      *
-     * @param  exception
+     * @param message Custom Message
      */
     public DataNotValid(String message)
     {

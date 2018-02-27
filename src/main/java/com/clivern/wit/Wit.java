@@ -49,7 +49,11 @@ public class Wit {
     /**
      * Send A Call To Wit.Ai
      *
+     * @param item Item Data to Send to Wit.AI
      * @return Boolean the call status
+     * @throws DataNotValid Data are not valid
+     * @throws DataNotFound Some data are missing
+     * @throws IOException Unable to send the request
      */
     public Boolean send(Contract item) throws DataNotValid, DataNotFound, IOException
     {

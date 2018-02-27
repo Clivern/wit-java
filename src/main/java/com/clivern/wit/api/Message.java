@@ -180,7 +180,7 @@ public class Message implements Contract {
     }
 
     /**
-     * Get Q (User’s query). Length must be > 0 and < 256
+     * Get Q (User’s query). Length must be more than 0 and less than 256
      *
      * @return String The users query
      */
@@ -270,7 +270,7 @@ public class Message implements Contract {
     }
 
     /**
-     * Set Q (User’s query). Length must be > 0 and < 256
+     * Set Q (User’s query). Length must be more than 0 and less than 256
      *
      * @param q The users query
      */

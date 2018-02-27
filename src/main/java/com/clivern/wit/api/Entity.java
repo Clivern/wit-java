@@ -247,7 +247,7 @@ public class Entity implements Contract {
     /**
      * Set the Entity ID
      *
-     * @param offset The Entity Id
+     * @param entityId The Entity Id
      */
     public void setEntityId(String entityId)
     {
