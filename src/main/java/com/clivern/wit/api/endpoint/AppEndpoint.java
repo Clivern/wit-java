@@ -24,7 +24,8 @@ public class AppEndpoint {
 
     public static String GET = "GET_APPS";
     public static String GET_METHOD = "GET";
-    public static String GET_ENDPOINT = "https://api.wit.ai/apps?v=20180225&offset={$OFFSET}&limit={$LIMIT}";
+    public static String GET_ENDPOINT =
+            "https://api.wit.ai/apps?v=20180225&offset={$OFFSET}&limit={$LIMIT}";
 
     public static String CREATE = "CREATE_APP";
     public static String CREATE_METHOD = "POST";
@@ -37,5 +38,4 @@ public class AppEndpoint {
     public static String DELETE = "DELETE_APP";
     public static String DELETE_METHOD = "DELETE";
     public static String DELETE_ENDPOINT = "https://api.wit.ai/apps/{$APP_ID}?v=20180225";
-
 }

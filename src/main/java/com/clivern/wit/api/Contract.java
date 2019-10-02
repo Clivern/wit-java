@@ -13,17 +13,16 @@
  */
 package com.clivern.wit.api;
 
-import java.util.Map;
 import com.clivern.wit.exception.DataNotFound;
 import com.clivern.wit.exception.DataNotValid;
+import java.util.Map;
 
 /**
  * API Contract
  *
  * @since 1.0.0
  */
-public interface Contract
-{
+public interface Contract {
     /**
      * Configure The API Call Info
      *

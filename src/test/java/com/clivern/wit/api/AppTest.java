@@ -13,10 +13,9 @@
  */
 package com.clivern.wit.api;
 
+import com.clivern.wit.api.endpoint.AppEndpoint;
 import com.clivern.wit.exception.DataNotFound;
 import com.clivern.wit.exception.DataNotValid;
-import com.clivern.wit.api.App;
-import com.clivern.wit.api.endpoint.AppEndpoint;
 import junit.framework.TestCase;
 
 /**
@@ -26,26 +25,27 @@ import junit.framework.TestCase;
  */
 public class AppTest extends TestCase {
 
-    public void testGet() throws DataNotValid, DataNotFound
-    {
+    public void testGet() throws DataNotValid, DataNotFound {
         App getApp = new App(AppEndpoint.GET);
         getApp.setAppId("app__id");
         getApp.setAccessToken("access__token");
         getApp.config();
-        assertEquals(getApp.debug(), "> curl -XGET 'https://api.wit.ai/apps?v=20180225&offset=0&limit=500' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
+        assertEquals(
+                getApp.debug(),
+                "> curl -XGET 'https://api.wit.ai/apps?v=20180225&offset=0&limit=500' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
     }
 
-    public void testDelete() throws DataNotValid, DataNotFound
-    {
+    public void testDelete() throws DataNotValid, DataNotFound {
         App deleteApp = new App(AppEndpoint.DELETE);
         deleteApp.setAppId("app__id");
         deleteApp.setAccessToken("access__token");
         deleteApp.config();
-        assertEquals(deleteApp.debug(), "> curl -XDELETE 'https://api.wit.ai/apps/app__id?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
+        assertEquals(
+                deleteApp.debug(),
+                "> curl -XDELETE 'https://api.wit.ai/apps/app__id?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\"");
     }
 
-    public void testUpdate() throws DataNotValid, DataNotFound
-    {
+    public void testUpdate() throws DataNotValid, DataNotFound {
         App updateApp = new App(AppEndpoint.UPDATE);
         updateApp.setName("Clark");
         updateApp.setLang("English");
@@ -55,11 +55,12 @@ public class AppTest extends TestCase {
         updateApp.setAppId("app__id");
         updateApp.setAccessToken("access__token");
         updateApp.config();
-        assertEquals(updateApp.debug(), "> curl -XPUT 'https://api.wit.ai/apps/app__id?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\" -d '{\"private\":\"false\",\"timezone\":\"America/Los_Angeles\",\"name\":\"Clark\",\"lang\":\"English\",\"desc\":\"Hello World\"}'");
+        assertEquals(
+                updateApp.debug(),
+                "> curl -XPUT 'https://api.wit.ai/apps/app__id?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\" -d '{\"private\":\"false\",\"timezone\":\"America/Los_Angeles\",\"name\":\"Clark\",\"lang\":\"English\",\"desc\":\"Hello World\"}'");
     }
 
-    public void testCreate() throws DataNotValid, DataNotFound
-    {
+    public void testCreate() throws DataNotValid, DataNotFound {
         App createApp = new App(AppEndpoint.CREATE);
         createApp.setName("Clark");
         createApp.setLang("English");
@@ -68,6 +69,8 @@ public class AppTest extends TestCase {
         createApp.setAppId("app__id");
         createApp.setAccessToken("access__token");
         createApp.config();
-        assertEquals(createApp.debug(), "> curl -XPOST 'https://api.wit.ai/apps?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\" -d '{\"private\":\"false\",\"name\":\"Clark\",\"lang\":\"English\",\"desc\":\"Hello World\"}'");
+        assertEquals(
+                createApp.debug(),
+                "> curl -XPOST 'https://api.wit.ai/apps?v=20180225' -H \"Authorization: Bearer access__token\" -H \"Content-Type: application/json\" -d '{\"private\":\"false\",\"name\":\"Clark\",\"lang\":\"English\",\"desc\":\"Hello World\"}'");
     }
 }

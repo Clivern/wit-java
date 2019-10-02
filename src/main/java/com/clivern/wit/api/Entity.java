@@ -13,13 +13,12 @@
  */
 package com.clivern.wit.api;
 
+import com.clivern.wit.api.endpoint.EntityEndpoint;
+import com.clivern.wit.exception.DataNotFound;
+import com.clivern.wit.exception.DataNotValid;
 import java.util.HashMap;
 import java.util.Map;
 import org.pmw.tinylog.Logger;
-import com.clivern.wit.exception.DataNotFound;
-import com.clivern.wit.exception.DataNotValid;
-import com.clivern.wit.api.Contract;
-import com.clivern.wit.api.endpoint.EntityEndpoint;
 
 /**
  * Entity API
@@ -42,14 +41,12 @@ public class Entity implements Contract {
     public String entityValue = "";
     public String expressionValue = "";
 
-
     /**
      * Class Constructor
      *
      * @param endpointName The Endpoint Name
      */
-    public Entity(String endpointName)
-    {
+    public Entity(String endpointName) {
         this.endpointName = endpointName;
     }
 
@@ -59,8 +56,7 @@ public class Entity implements Contract {
      * @param endpointName The Endpoint Name
      * @param contentType The Content Type
      */
-    public Entity(String endpointName, String contentType)
-    {
+    public Entity(String endpointName, String contentType) {
         this.endpointName = endpointName;
         this.contentType = contentType;
     }
@@ -72,77 +68,79 @@ public class Entity implements Contract {
      * @throws DataNotValid Invalid Data Within The Request
      * @throws DataNotFound Some Data are Missing
      */
-    public Boolean config() throws DataNotValid, DataNotFound
-    {
+    public Boolean config() throws DataNotValid, DataNotFound {
         // Build Headers
         this.headers.put("Authorization", "Bearer " + this.accessToken);
         this.headers.put("Content-Type", this.contentType);
 
         // Set URL & Method
-        if( this.endpointName.equals(EntityEndpoint.GET_ENTITIES) ){
+        if (this.endpointName.equals(EntityEndpoint.GET_ENTITIES)) {
 
             this.url = EntityEndpoint.GET_ENTITIES_ENDPOINT;
             this.method = EntityEndpoint.GET_ENTITIES_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.CREATE_ENTITY) ){
+        } else if (this.endpointName.equals(EntityEndpoint.CREATE_ENTITY)) {
 
             this.url = EntityEndpoint.CREATE_ENTITY_ENDPOINT;
             this.method = EntityEndpoint.CREATE_ENTITY_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.GET_ENTITY) ){
+        } else if (this.endpointName.equals(EntityEndpoint.GET_ENTITY)) {
 
             this.url = EntityEndpoint.GET_ENTITY_ENDPOINT;
             this.method = EntityEndpoint.GET_ENTITY_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.UPDATE_ENTITY) ){
+        } else if (this.endpointName.equals(EntityEndpoint.UPDATE_ENTITY)) {
 
             this.url = EntityEndpoint.UPDATE_ENTITY_ENDPOINT;
             this.method = EntityEndpoint.UPDATE_ENTITY_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.DELETE_ENTITY) ){
+        } else if (this.endpointName.equals(EntityEndpoint.DELETE_ENTITY)) {
 
             this.url = EntityEndpoint.DELETE_ENTITY_ENDPOINT;
             this.method = EntityEndpoint.DELETE_ENTITY_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.CREATE_ENTITY_VALUE) ){
+        } else if (this.endpointName.equals(EntityEndpoint.CREATE_ENTITY_VALUE)) {
 
             this.url = EntityEndpoint.CREATE_ENTITY_VALUE_ENDPOINT;
             this.method = EntityEndpoint.CREATE_ENTITY_VALUE_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.DELETE_ENTITY_VALUE) ){
+        } else if (this.endpointName.equals(EntityEndpoint.DELETE_ENTITY_VALUE)) {
 
             this.url = EntityEndpoint.DELETE_ENTITY_VALUE_ENDPOINT;
             this.method = EntityEndpoint.DELETE_ENTITY_VALUE_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.CREATE_ENTITY_VALUE_EXPRESSION) ){
+        } else if (this.endpointName.equals(EntityEndpoint.CREATE_ENTITY_VALUE_EXPRESSION)) {
 
             this.url = EntityEndpoint.CREATE_ENTITY_VALUE_EXPRESSION_ENDPOINT;
             this.method = EntityEndpoint.CREATE_ENTITY_VALUE_EXPRESSION_METHOD;
 
-        }else if( this.endpointName.equals(EntityEndpoint.DELETE_ENTITY_VALUE_EXPRESSION) ){
+        } else if (this.endpointName.equals(EntityEndpoint.DELETE_ENTITY_VALUE_EXPRESSION)) {
 
             this.url = EntityEndpoint.DELETE_ENTITY_VALUE_EXPRESSION_ENDPOINT;
             this.method = EntityEndpoint.DELETE_ENTITY_VALUE_EXPRESSION_METHOD;
 
-        }else{
+        } else {
 
             Logger.error("Error! Invalid endpointName Value.");
             throw new DataNotValid("Error! Invalid endpointName Value.");
-
         }
 
         // Build Data
-        if( !this.data.isEmpty() ){
+        if (!this.data.isEmpty()) {
             this.finalData += "{";
             for (Map.Entry<String, String> entry : this.data.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
 
-                if( (value.indexOf("||") > 0) && (!value.startsWith("{")) && (!value.endsWith("}")) ){
+                if ((value.indexOf("||") > 0)
+                        && (!value.startsWith("{"))
+                        && (!value.endsWith("}"))) {
                     value = "[\"" + value.replace("||", "\",\"") + "\"]";
-                }else if( (value.indexOf("||") > 0) && (value.startsWith("{")) && (value.endsWith("}")) ){
+                } else if ((value.indexOf("||") > 0)
+                        && (value.startsWith("{"))
+                        && (value.endsWith("}"))) {
                     value = "[" + value.replace("||", ",") + "]";
-                }else{
+                } else {
                     value = "\"" + value + "\"";
                 }
 
@@ -164,8 +162,7 @@ public class Entity implements Contract {
      *
      * @return String The URL
      */
-    public String getUrl()
-    {
+    public String getUrl() {
         return this.url;
     }
 
@@ -174,8 +171,7 @@ public class Entity implements Contract {
      *
      * @return String The Method
      */
-    public String getMethod()
-    {
+    public String getMethod() {
         return this.method;
     }
 
@@ -184,8 +180,7 @@ public class Entity implements Contract {
      *
      * @return Map The Headers
      */
-    public Map<String, String> getHeaders()
-    {
+    public Map<String, String> getHeaders() {
         return this.headers;
     }
 
@@ -194,8 +189,7 @@ public class Entity implements Contract {
      *
      * @return String The Data to Send
      */
-    public String getData()
-    {
+    public String getData() {
         return this.finalData;
     }
 
@@ -204,8 +198,7 @@ public class Entity implements Contract {
      *
      * @return String The App ID
      */
-    public String getAppId()
-    {
+    public String getAppId() {
         return this.appId;
     }
 
@@ -214,8 +207,7 @@ public class Entity implements Contract {
      *
      * @return String The Access Token
      */
-    public String getAccessToken()
-    {
+    public String getAccessToken() {
         return this.accessToken;
     }
 
@@ -224,9 +216,8 @@ public class Entity implements Contract {
      *
      * @param appId Application ID
      */
-    public void setAppId(String appId)
-    {
-        if( this.appId.equals("") ){
+    public void setAppId(String appId) {
+        if (this.appId.equals("")) {
             this.appId = appId;
         }
     }
@@ -236,21 +227,18 @@ public class Entity implements Contract {
      *
      * @param accessToken Access Token
      */
-    public void setAccessToken(String accessToken)
-    {
-        if( this.accessToken.equals("") ){
+    public void setAccessToken(String accessToken) {
+        if (this.accessToken.equals("")) {
             this.accessToken = accessToken;
         }
     }
-
 
     /**
      * Set the Entity ID
      *
      * @param entityId The Entity Id
      */
-    public void setEntityId(String entityId)
-    {
+    public void setEntityId(String entityId) {
         this.entityId = entityId;
     }
 
@@ -259,8 +247,7 @@ public class Entity implements Contract {
      *
      * @param entityValue The Entity Value
      */
-    public void setEntityValue(String entityValue)
-    {
+    public void setEntityValue(String entityValue) {
         this.entityValue = entityValue;
     }
 
@@ -269,19 +256,16 @@ public class Entity implements Contract {
      *
      * @param expressionValue The Expression Value
      */
-    public void setExpressionValue(String expressionValue)
-    {
+    public void setExpressionValue(String expressionValue) {
         this.expressionValue = expressionValue;
     }
-
 
     /**
      * Set The Entity Id
      *
      * @param id The Entity id
      */
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.data.put("id", id);
     }
 
@@ -290,58 +274,52 @@ public class Entity implements Contract {
      *
      * @param doc A Short sentence describing this entity
      */
-    public void setDoc(String doc)
-    {
+    public void setDoc(String doc) {
         this.data.put("doc", doc);
     }
 
-   /**
+    /**
      * Set Entity Values
      *
      * @param values Entity Values
      */
-    public void setValues(String[] values)
-    {
+    public void setValues(String[] values) {
         this.data.put("values", String.join("||", values));
     }
 
-   /**
+    /**
      * Set Entity Value
      *
      * @param value Entity Value
      */
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.data.put("value", value);
     }
 
-   /**
+    /**
      * Set Entity Value Expressions
      *
      * @param expressions Entity Value Expressions
      */
-    public void setExpressions(String[] expressions)
-    {
+    public void setExpressions(String[] expressions) {
         this.data.put("expressions", String.join("||", expressions));
     }
 
-   /**
+    /**
      * Set A metadata to attach to Entity value
      *
      * @param metadata A metadata value to be attached to Entity value
      */
-    public void setMetadata(String metadata)
-    {
+    public void setMetadata(String metadata) {
         this.data.put("metadata", metadata);
     }
 
-   /**
+    /**
      * Set Entity Value Expression
      *
      * @param expression Entity Value Expression
      */
-    public void setExpression(String expression)
-    {
+    public void setExpression(String expression) {
         this.data.put("expression", expression);
     }
 
@@ -350,8 +328,7 @@ public class Entity implements Contract {
      *
      * @return String The Entity Id
      */
-    public String getEntityId()
-    {
+    public String getEntityId() {
         return this.entityId;
     }
 
@@ -360,8 +337,7 @@ public class Entity implements Contract {
      *
      * @return String The Entity Value
      */
-    public String getEntityValue()
-    {
+    public String getEntityValue() {
         return this.entityValue;
     }
 
@@ -370,8 +346,7 @@ public class Entity implements Contract {
      *
      * @return String The Expression Value
      */
-    public String getExpressionValue()
-    {
+    public String getExpressionValue() {
         return this.expressionValue;
     }
 
@@ -380,8 +355,7 @@ public class Entity implements Contract {
      *
      * @return String The Entity id
      */
-    public String getId()
-    {
+    public String getId() {
         return (this.data.containsKey("id")) ? this.data.get("id") : "";
     }
 
@@ -390,78 +364,75 @@ public class Entity implements Contract {
      *
      * @return String A Short sentence describing this entity
      */
-    public String getDoc()
-    {
+    public String getDoc() {
         return (this.data.containsKey("doc")) ? this.data.get("doc") : "";
     }
 
-   /**
+    /**
      * Get Entity Values
      *
      * @return ArrayList Entity Values
      */
-    public String[] getValues()
-    {
-        return (this.data.containsKey("values")) ? this.data.get("values").split("||") : new String[]{};
+    public String[] getValues() {
+        return (this.data.containsKey("values"))
+                ? this.data.get("values").split("||")
+                : new String[] {};
     }
 
-   /**
+    /**
      * Get Entity Value
      *
      * @return String Entity Value
      */
-    public String getValue()
-    {
+    public String getValue() {
         return (this.data.containsKey("value")) ? this.data.get("value") : "";
     }
 
-   /**
+    /**
      * Get Entity Value Expressions
      *
      * @return ArrayList Entity Value Expressions
      */
-    public String[] getExpressions()
-    {
-        return (this.data.containsKey("expressions")) ? this.data.get("expressions").split("||") : new String[]{};
+    public String[] getExpressions() {
+        return (this.data.containsKey("expressions"))
+                ? this.data.get("expressions").split("||")
+                : new String[] {};
     }
 
-   /**
+    /**
      * Get A metadata to attach to Entity value
      *
      * @return String A metadata value to be attached to Entity value
      */
-    public String getMetadata()
-    {
+    public String getMetadata() {
         return (this.data.containsKey("metadata")) ? this.data.get("metadata") : "";
     }
 
-   /**
+    /**
      * Get Entity Value Expression
      *
      * @return String Entity Value Expression
      */
-    public String getExpression()
-    {
+    public String getExpression() {
         return (this.data.containsKey("expression")) ? this.data.get("expression") : "";
     }
 
     /**
      * Debug The Request
      *
-     * This Used for Development Purposes and Shouldn't used in Production
+     * <p>This Used for Development Purposes and Shouldn't used in Production
      *
      * @return String The debug data
      */
-    public String debug()
-    {
+    public String debug() {
         String debug = "> curl -X" + this.method + " '" + this.url + "'";
 
-        if( !this.headers.isEmpty() ){
+        if (!this.headers.isEmpty()) {
             for (Map.Entry<String, String> entry : this.headers.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
 
-                if( value.indexOf("||") > 0 ){
+                if (value.indexOf("||") > 0) {
                     value = "[\"" + value.replace("||", "\",\"") + "\"]";
                 }
 
@@ -469,7 +440,7 @@ public class Entity implements Contract {
             }
         }
 
-        if( !this.getData().equals("") ){
+        if (!this.getData().equals("")) {
             debug += " -d '" + this.getData() + "'";
         }
 

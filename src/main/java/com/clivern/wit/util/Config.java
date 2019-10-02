@@ -13,19 +13,18 @@
  */
 package com.clivern.wit.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import org.pmw.tinylog.*;
-import org.pmw.tinylog.Logger;
 import org.pmw.tinylog.writers.*;
 
 /**
@@ -44,8 +43,7 @@ public class Config {
      * @return Boolean whether config file loaded or not
      * @throws IOException May throw IOException if it cannot open configs file
      */
-    public Boolean loadPropertiesFile(String path) throws IOException
-    {
+    public Boolean loadPropertiesFile(String path) throws IOException {
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -54,7 +52,7 @@ public class Config {
             input = new FileInputStream(path);
             prop.load(input);
 
-            for(String key : prop.stringPropertyNames()) {
+            for (String key : prop.stringPropertyNames()) {
                 String value = prop.getProperty(key);
                 configs.put(key, value);
             }
@@ -72,15 +70,14 @@ public class Config {
      * @return Boolean whether config file stored or not
      * @throws IOException May throw IOException if it cannot open configs file
      */
-    public Boolean storePropertiesFile(String path) throws IOException
-    {
+    public Boolean storePropertiesFile(String path) throws IOException {
         Properties prop = new Properties();
         OutputStream output = null;
 
         try {
 
             output = new FileOutputStream(path);
-            for (String key : configs.keySet()){
+            for (String key : configs.keySet()) {
                 prop.setProperty(key, configs.get(key));
             }
             prop.store(output, null);
@@ -97,8 +94,7 @@ public class Config {
      * @param key the config item key
      * @param value the config item value
      */
-    public void set(String key, String value)
-    {
+    public void set(String key, String value) {
         configs.put(key, value);
     }
 
@@ -109,9 +105,8 @@ public class Config {
      * @param defaultValue the config item default value
      * @return String the config item value
      */
-    public String get(String key, String defaultValue)
-    {
-        if( configs.containsKey(key) ){
+    public String get(String key, String defaultValue) {
+        if (configs.containsKey(key)) {
             return configs.get(key);
         }
 
@@ -123,16 +118,12 @@ public class Config {
      *
      * @return Map list of all configs
      */
-    public Map<String, String> getAll()
-    {
+    public Map<String, String> getAll() {
         return configs;
     }
 
-    /**
-     * Configure Logger
-     */
-    public void configLogger()
-    {
+    /** Configure Logger */
+    public void configLogger() {
         Map<String, Level> logLevels = new HashMap<String, Level>();
         logLevels.put("trace", Level.TRACE);
         logLevels.put("debug", Level.DEBUG);
@@ -140,34 +131,62 @@ public class Config {
         logLevels.put("warning", Level.WARNING);
         logLevels.put("error", Level.ERROR);
 
-        if( this.get("logging_log_type", "file").equals("file") ){
+        if (this.get("logging_log_type", "file").equals("file")) {
 
-            DateFormat dateFormat = new SimpleDateFormat(this.get("logging_current_date_format","yyyy-MM-dd"));
+            DateFormat dateFormat =
+                    new SimpleDateFormat(this.get("logging_current_date_format", "yyyy-MM-dd"));
             Date date = new Date();
-            String logFileName = (this.get("logging_file_format", "current_date").equals("current_date")) ? dateFormat.format(date) + ".log" : this.get("logging_file_format", "current_date") + ".log";
+            String logFileName =
+                    (this.get("logging_file_format", "current_date").equals("current_date"))
+                            ? dateFormat.format(date) + ".log"
+                            : this.get("logging_file_format", "current_date") + ".log";
             Configurator.defaultConfig()
-                .writer(new FileWriter(this.get("logging_file_path", "src/main/java/resources/") + logFileName, (this.get("logging_buffered", "false").equals("true")) ? true : false, (this.get("logging_append", "true").equals("true")) ? true : false))
-                .level((logLevels.containsKey(this.get("logging_level","debug"))) ? logLevels.get(this.get("logging_level","debug")) : Level.INFO)
-                .activate();
+                    .writer(
+                            new FileWriter(
+                                    this.get("logging_file_path", "src/main/java/resources/")
+                                            + logFileName,
+                                    (this.get("logging_buffered", "false").equals("true"))
+                                            ? true
+                                            : false,
+                                    (this.get("logging_append", "true").equals("true"))
+                                            ? true
+                                            : false))
+                    .level(
+                            (logLevels.containsKey(this.get("logging_level", "debug")))
+                                    ? logLevels.get(this.get("logging_level", "debug"))
+                                    : Level.INFO)
+                    .activate();
 
-        }else if( this.get("logging_log_type", "file").equals("both") ){
+        } else if (this.get("logging_log_type", "file").equals("both")) {
 
-            DateFormat dateFormat = new SimpleDateFormat(this.get("logging_current_date_format","yyyy-MM-dd"));
+            DateFormat dateFormat =
+                    new SimpleDateFormat(this.get("logging_current_date_format", "yyyy-MM-dd"));
             Date date = new Date();
-            String logFileName = (this.get("logging_file_format", "current_date").equals("current_date")) ? dateFormat.format(date) + ".log" : this.get("logging_file_format", "current_date") + ".log";
+            String logFileName =
+                    (this.get("logging_file_format", "current_date").equals("current_date"))
+                            ? dateFormat.format(date) + ".log"
+                            : this.get("logging_file_format", "current_date") + ".log";
             Configurator.defaultConfig()
-                .writer(new ConsoleWriter())
-                .addWriter(new FileWriter(this.get("logging_file_path", "src/main/java/resources/") + logFileName))
-                .level((logLevels.containsKey(this.get("logging_level","debug"))) ? logLevels.get(this.get("logging_level","debug")) : Level.INFO)
-                .activate();
+                    .writer(new ConsoleWriter())
+                    .addWriter(
+                            new FileWriter(
+                                    this.get("logging_file_path", "src/main/java/resources/")
+                                            + logFileName))
+                    .level(
+                            (logLevels.containsKey(this.get("logging_level", "debug")))
+                                    ? logLevels.get(this.get("logging_level", "debug"))
+                                    : Level.INFO)
+                    .activate();
 
-        }else{
+        } else {
 
             Configurator.defaultConfig()
-                .writer(new ConsoleWriter())
-                .level((logLevels.containsKey(this.get("logging_level","debug"))) ? logLevels.get(this.get("logging_level","debug")) : Level.INFO)
-                .activate();
-
+                    .writer(new ConsoleWriter())
+                    .level(
+                            (logLevels.containsKey(this.get("logging_level", "debug")))
+                                    ? logLevels.get(this.get("logging_level", "debug"))
+                                    : Level.INFO)
+                    .activate();
         }
     }
 }
