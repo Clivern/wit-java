@@ -24,6 +24,6 @@ public class MessageEndpoint {
 
     public static String GET = "GET_MESSAGE";
     public static String GET_METHOD = "GET";
-    public static String GET_ENDPOINT = "https://api.wit.ai/message?v=20180225&q={$Q}&context={$CONTEXT}&msg_id={$MSG_ID}&thread_id={$THREAD_ID}&n={$N}&verbose={$VERBOSE}";
-
+    public static String GET_ENDPOINT =
+            "https://api.wit.ai/message?v=20180225&q={$Q}&context={$CONTEXT}&msg_id={$MSG_ID}&thread_id={$THREAD_ID}&n={$N}&verbose={$VERBOSE}";
 }

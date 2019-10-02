@@ -18,6 +18,4 @@ package com.clivern.wit.api;
  *
  * @since 1.0.0
  */
-public class Speech {
-
-}
+public class Speech {}

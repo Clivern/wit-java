@@ -13,15 +13,14 @@
  */
 package com.clivern.wit;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.clivern.wit.util.Config;
-import com.clivern.wit.util.Http;
 import com.clivern.wit.api.Contract;
-import org.pmw.tinylog.Logger;
 import com.clivern.wit.exception.DataNotFound;
 import com.clivern.wit.exception.DataNotValid;
+import com.clivern.wit.util.Config;
+import com.clivern.wit.util.Http;
 import java.io.IOException;
+import java.util.HashMap;
+import org.pmw.tinylog.Logger;
 
 /**
  * Wit Base Class
@@ -40,8 +39,7 @@ public class Wit {
      *
      * @param config An instance of config class
      */
-    public Wit(Config config)
-    {
+    public Wit(Config config) {
         this.config = config;
     }
 
@@ -54,8 +52,7 @@ public class Wit {
      * @throws DataNotFound Some data are missing
      * @throws IOException Unable to send the request
      */
-    public Boolean send(Contract item) throws DataNotValid, DataNotFound, IOException
-    {
+    public Boolean send(Contract item) throws DataNotValid, DataNotFound, IOException {
         this.status = false;
         this.response = "";
         this.error = "";
@@ -64,9 +61,10 @@ public class Wit {
             item.setAppId(this.config.get("wit_api_id", ""));
             item.setAccessToken(this.config.get("wit_access_token", ""));
             item.config();
-            HashMap<String,String> headers = (HashMap<String,String>) item.getHeaders();
+            HashMap<String, String> headers = (HashMap<String, String>) item.getHeaders();
             Logger.info(item.debug());
-            Http httpRequest = new Http(item.getUrl(), item.getMethod(), item.getHeaders(), item.getData());
+            Http httpRequest =
+                    new Http(item.getUrl(), item.getMethod(), item.getHeaders(), item.getData());
             this.response = httpRequest.execute();
         } catch (Exception e) {
             this.status = false;
@@ -75,9 +73,9 @@ public class Wit {
             return this.status;
         }
 
-        if( this.response.equals("") || this.response.indexOf("error") > 0 ){
+        if (this.response.equals("") || this.response.indexOf("error") > 0) {
             this.status = false;
-        }else{
+        } else {
             this.status = true;
         }
 
@@ -89,8 +87,7 @@ public class Wit {
      *
      * @return String The Call Response
      */
-    public String getResponse()
-    {
+    public String getResponse() {
         return this.response;
     }
 
@@ -99,8 +96,7 @@ public class Wit {
      *
      * @return String The Call Error
      */
-    public String getError()
-    {
+    public String getError() {
         return this.error;
     }
 
@@ -109,8 +105,7 @@ public class Wit {
      *
      * @return Boolean The Call Status
      */
-    public Boolean getRequestStatus()
-    {
+    public Boolean getRequestStatus() {
         return this.status;
     }
 
@@ -119,8 +114,7 @@ public class Wit {
      *
      * @return String The Package Name and Version
      */
-    public String getName()
-    {
+    public String getName() {
         return "Wit-Java ~ v1.0.0";
     }
 }

@@ -25,8 +25,7 @@ public class DataNotValid extends Exception {
      *
      * @param exception Exception Instance
      */
-    public DataNotValid(Exception exception)
-    {
+    public DataNotValid(Exception exception) {
         super(exception);
     }
 
@@ -35,8 +34,7 @@ public class DataNotValid extends Exception {
      *
      * @param message Custom Message
      */
-    public DataNotValid(String message)
-    {
+    public DataNotValid(String message) {
         super(message);
     }
 }

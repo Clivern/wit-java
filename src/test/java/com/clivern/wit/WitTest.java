@@ -13,10 +13,9 @@
  */
 package com.clivern.wit;
 
-import com.clivern.wit.Wit;
 import com.clivern.wit.util.Config;
-import junit.framework.TestCase;
 import java.io.IOException;
+import junit.framework.TestCase;
 
 /**
  * Wit Class Test Cases
@@ -25,8 +24,7 @@ import java.io.IOException;
  */
 public class WitTest extends TestCase {
 
-    public void testGetName() throws IOException
-    {
+    public void testGetName() throws IOException {
         Config config = new Config();
         config.loadPropertiesFile("src/test/java/resources/config.properties");
         config.configLogger();

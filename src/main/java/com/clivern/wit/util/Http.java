@@ -13,16 +13,15 @@
  */
 package com.clivern.wit.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.pmw.tinylog.Logger;
 import com.clivern.wit.exception.DataNotFound;
-import okhttp3.OkHttpClient;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.RequestBody;
 import java.io.IOException;
+import java.util.Map;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.pmw.tinylog.Logger;
 
 /**
  * HTTP Utils Class
@@ -46,8 +45,7 @@ public class Http {
      * @param method The Call Method
      * @param headers The List of Headers
      */
-    public Http(String url, String method, Map<String, String> headers)
-    {
+    public Http(String url, String method, Map<String, String> headers) {
         this.url = url;
         this.method = method;
         this.headers = headers;
@@ -61,8 +59,7 @@ public class Http {
      * @param headers The List of Headers
      * @param body The request body
      */
-    public Http(String url, String method, Map<String, String> headers, String body)
-    {
+    public Http(String url, String method, Map<String, String> headers, String body) {
         this.url = url;
         this.method = method;
         this.headers = headers;
@@ -76,11 +73,12 @@ public class Http {
      * @throws DataNotFound some data missing
      * @throws IOException Unable to do the call
      */
-    public String execute() throws DataNotFound, IOException
-    {
-        if( !this.headers.containsKey("Content-Type") || !this.headers.containsKey("Authorization") ){
+    public String execute() throws DataNotFound, IOException {
+        if (!this.headers.containsKey("Content-Type")
+                || !this.headers.containsKey("Authorization")) {
             Logger.error("Error! Content-Type and Authorization required to make a request.");
-            throw new DataNotFound("Error! Content-Type and Authorization required to make a request.");
+            throw new DataNotFound(
+                    "Error! Content-Type and Authorization required to make a request.");
         }
 
         this.url = this.url.replaceAll(" ", "%20");
@@ -88,49 +86,53 @@ public class Http {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse(this.headers.get("Content-Type"));
 
-        if( this.method.equals("GET") ){
+        if (this.method.equals("GET")) {
 
-            Request request = new Request.Builder()
-                .url(this.url)
-                .get()
-                .addHeader("Authorization", this.headers.get("Authorization"))
-                .addHeader("Content-Type", this.headers.get("Content-Type"))
-                .build();
+            Request request =
+                    new Request.Builder()
+                            .url(this.url)
+                            .get()
+                            .addHeader("Authorization", this.headers.get("Authorization"))
+                            .addHeader("Content-Type", this.headers.get("Content-Type"))
+                            .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
 
-        }else if( this.method.equals("POST") ){
+        } else if (this.method.equals("POST")) {
 
             RequestBody body = RequestBody.create(mediaType, this.body);
-            Request request = new Request.Builder()
-                .url(this.url)
-                .post(body)
-                .addHeader("Authorization", this.headers.get("Authorization"))
-                .addHeader("Content-Type", this.headers.get("Content-Type"))
-                .build();
+            Request request =
+                    new Request.Builder()
+                            .url(this.url)
+                            .post(body)
+                            .addHeader("Authorization", this.headers.get("Authorization"))
+                            .addHeader("Content-Type", this.headers.get("Content-Type"))
+                            .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
 
-        }else if( this.method.equals("PUT") ){
+        } else if (this.method.equals("PUT")) {
 
             RequestBody body = RequestBody.create(mediaType, this.body);
-            Request request = new Request.Builder()
-                .url(this.url)
-                .put(body)
-                .addHeader("Authorization", this.headers.get("Authorization"))
-                .addHeader("Content-Type", this.headers.get("Content-Type"))
-                .build();
+            Request request =
+                    new Request.Builder()
+                            .url(this.url)
+                            .put(body)
+                            .addHeader("Authorization", this.headers.get("Authorization"))
+                            .addHeader("Content-Type", this.headers.get("Content-Type"))
+                            .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
 
-        }else if( this.method.equals("DELETE") ){
+        } else if (this.method.equals("DELETE")) {
 
-            Request request = new Request.Builder()
-                .url(this.url)
-                .delete(null)
-                .addHeader("Authorization", this.headers.get("Authorization"))
-                .addHeader("Content-Type", this.headers.get("Content-Type"))
-                .build();
+            Request request =
+                    new Request.Builder()
+                            .url(this.url)
+                            .delete(null)
+                            .addHeader("Authorization", this.headers.get("Authorization"))
+                            .addHeader("Content-Type", this.headers.get("Content-Type"))
+                            .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
         }

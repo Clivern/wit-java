@@ -2,6 +2,10 @@
  * Copyright (C) 2018 Clivern <http://clivern.com>
  */
 
+plugins {
+    id 'com.github.sherter.google-java-format' version '0.8'
+}
+
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
 apply plugin: 'maven'
@@ -60,6 +64,10 @@ test {
     testLogging {
         events "PASSED", "STARTED", "FAILED", "SKIPPED"
     }
+}
+
+googleJavaFormat {
+    options style: 'AOSP'
 }
 
 dependencies {

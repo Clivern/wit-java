@@ -23,10 +23,9 @@ public class DataNotFound extends Exception {
     /**
      * Class Constructor
      *
-     *  @param exception Exception Instance
+     * @param exception Exception Instance
      */
-    public DataNotFound(Exception exception)
-    {
+    public DataNotFound(Exception exception) {
         super(exception);
     }
 
@@ -35,8 +34,7 @@ public class DataNotFound extends Exception {
      *
      * @param message Custom Message
      */
-    public DataNotFound(String message)
-    {
+    public DataNotFound(String message) {
         super(message);
     }
 }

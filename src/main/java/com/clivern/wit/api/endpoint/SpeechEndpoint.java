@@ -21,5 +21,4 @@ package com.clivern.wit.api.endpoint;
 public class SpeechEndpoint {
 
     public static String CONTENT_TYPE = "application/json";
-
 }
