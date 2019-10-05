@@ -11,30 +11,3 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.clivern.wit.exception;
-
-/**
- * Data Not Found Custom Exception
- *
- * @since 1.0.0
- */
-public class DataNotFound extends Exception {
-
-    /**
-     * Class Constructor
-     *
-     * @param exception Exception Instance
-     */
-    public DataNotFound(Exception exception) {
-        super(exception);
-    }
-
-    /**
-     * Class Constructor
-     *
-     * @param message Custom Message
-     */
-    public DataNotFound(String message) {
-        super(message);
-    }
-}
