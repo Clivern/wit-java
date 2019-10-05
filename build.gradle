@@ -3,21 +3,22 @@
  */
 
 plugins {
-    id 'com.github.sherter.google-java-format' version '0.8'
+    id 'java-library'
+    id 'maven'
+    id 'jacoco'
+    id 'com.diffplug.gradle.spotless' version '3.24.3'
 }
-
-// Apply the java-library plugin to add support for Java Library
-apply plugin: 'java-library'
-apply plugin: 'maven'
 
 archivesBaseName = "wit-java"
 version = '1.0.0'
 
-repositories {
-    jcenter()
-    mavenCentral()
-    google()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+spotless {
+    java {
+        licenseHeaderFile '.license'
+        importOrder 'java'
+        googleJavaFormat('1.1').aosp()
+        target 'src/**/*.java'
+    }
 }
 
 // Update Pom file ./gradlew updatePom
@@ -39,15 +40,15 @@ task updatePom {
                     }
                 }
                 developers {
-                	developer {
-                		id 'clivern'
-                		name 'AF'
+                    developer {
+                        id 'Clivern'
+                        name 'Ahmed'
                         email 'hello@clivern.com'
                         url 'http://clivern.com'
                         roles {
-                            role 'Software Developer'
+                            role 'Software Engineer'
                         }
-                	}
+                    }
                 }
                 scm {
                     url 'https://github.com/clivern/wit-java'
@@ -66,8 +67,11 @@ test {
     }
 }
 
-googleJavaFormat {
-    options style: 'AOSP'
+repositories {
+    jcenter()
+    mavenCentral()
+    google()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencies {
